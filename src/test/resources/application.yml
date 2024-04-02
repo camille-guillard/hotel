@@ -1,0 +1,19 @@
+spring:
+  application: hotel
+  datasource:
+    url: jdbc:postgresql://localhost:5432/?currentSchema=hotel
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+      dialect: org.hibernate.dialect.PostgreSQL9Dialect
+      show-sql: true
+  session:
+    jdbc:
+      initialize-schema: always
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/liquibase-changelog.xml

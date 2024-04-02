@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <changeSet id="init-schema" author="camille-guillard">
+
+        <createTable tableName="t_hotel">
+            <column name="hotel_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="hotel_code" type="varchar(200)">
+                <constraints nullable="false" primaryKey="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="t_room">
+            <column name="room_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="hotel_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="false" />
+            </column>
+            <column name="room_code" type="varchar(200)">
+                <constraints nullable="false" primaryKey="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="t_customer">
+            <column name="customer_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="customer_first_name" type="varchar(200)">
+                <constraints nullable="false" primaryKey="false" />
+            </column>
+            <column name="customer_last_name" type="varchar(200)">
+                <constraints nullable="false" primaryKey="false" />
+            </column>
+            <column name="customer_date_of_birth" type="date">
+                <constraints nullable="true" primaryKey="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="t_reservation">
+            <column name="reservation_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="reservation_start_date" type="date">
+                <constraints nullable="true" primaryKey="false"/>
+            </column>
+            <column name="reservation_end_date" type="date">
+                <constraints nullable="true" primaryKey="false"/>
+            </column>
+            <column name="creation_date" type="datetime">
+                <constraints nullable="true" primaryKey="false"/>
+            </column>
+            <column name="modification_date" type="datetime">
+                <constraints nullable="true" primaryKey="false"/>
+            </column>
+            <column name="reservation_price" type="BIGINT">
+                <constraints nullable="false" primaryKey="false" />
+            </column>
+            <column name="room_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="false" />
+            </column>
+            <column name="booker_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="r_reservation_customer">
+            <column name="reservation_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="customer_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+        </createTable>
+
+
+        <addForeignKeyConstraint baseTableName="t_room"
+                                 baseColumnNames="hotel_id"
+                                 referencedTableName="t_hotel"
+                                 referencedColumnNames="hotel_id"
+                                 constraintName="fk_room_hotel_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"/>
+
+        <addForeignKeyConstraint baseTableName="t_reservation"
+                                 baseColumnNames="room_id"
+                                 referencedTableName="t_room"
+                                 referencedColumnNames="room_id"
+                                 constraintName="fk_reservation_room_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"/>
+
+        <addForeignKeyConstraint baseTableName="t_reservation"
+                                 baseColumnNames="booker_id"
+                                 referencedTableName="t_customer"
+                                 referencedColumnNames="customer_id"
+                                 constraintName="fk_reservation_booker_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"/>
+
+        <addForeignKeyConstraint baseTableName="r_reservation_customer"
+                                 baseColumnNames="reservation_id"
+                                 referencedTableName="t_reservation"
+                                 referencedColumnNames="reservation_id"
+                                 constraintName="fk_r_reservation_customer_reservation_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"/>
+
+        <addForeignKeyConstraint baseTableName="r_reservation_customer"
+                                 baseColumnNames="customer_id"
+                                 referencedTableName="t_customer"
+                                 referencedColumnNames="customer_id"
+                                 constraintName="fk_r_reservation_customer_customer_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"/>
+
+    </changeSet>
+
+
+</databaseChangeLog>

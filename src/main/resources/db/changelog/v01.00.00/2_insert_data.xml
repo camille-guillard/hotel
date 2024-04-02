@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <changeSet id="insert-data-hotel" author="camille-guillard">
+        <insert tableName="t_hotel">
+            <column name="hotel_id">1</column>
+            <column name="hotel_code">HOTEL001</column>
+        </insert>
+        <insert tableName="t_hotel">
+            <column name="hotel_id">2</column>
+            <column name="hotel_code">HOTEL002</column>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-data-room" author="camille-guillard">
+        <insert tableName="t_room">
+            <column name="room_id">1</column>
+            <column name="hotel_id">1</column>
+            <column name="room_code">001-001</column>
+        </insert>
+        <insert tableName="t_room">
+            <column name="room_id">2</column>
+            <column name="hotel_id">1</column>
+            <column name="room_code">001-002</column>
+        </insert>
+        <insert tableName="t_room">
+            <column name="room_id">3</column>
+            <column name="hotel_id">2</column>
+            <column name="room_code">002-001</column>
+        </insert>
+        <insert tableName="t_room">
+            <column name="room_id">4</column>
+            <column name="hotel_id">2</column>
+            <column name="room_code">002-002</column>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-data-customer" author="camille-guillard">
+        <insert tableName="t_customer">
+            <column name="customer_id">1</column>
+            <column name="customer_first_name">Camille</column>
+            <column name="customer_last_name">Guillard</column>
+            <column name="customer_last_name">1993-08-20</column>
+        </insert>
+        <insert tableName="t_customer">
+            <column name="customer_id">2</column>
+            <column name="customer_first_name">Jeanne</column>
+            <column name="customer_last_name">Martin</column>
+            <column name="customer_last_name">2000-01-01</column>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-data-reservation" author="camille-guillard">
+        <insert tableName="t_reservation">
+            <column name="reservation_id">1</column>
+            <column name="reservation_start_date">2024-07-01</column>
+            <column name="reservation_end_date">2024-07-02</column>
+            <column name="creation_date">2024-03-29</column>
+            <column name="modification_date">2024-03-29</column>
+            <column name="reservation_price">100</column>
+            <column name="room_id">1</column>
+            <column name="booker_id">1</column>
+        </insert>
+        <insert tableName="t_reservation">
+            <column name="reservation_id">2</column>
+            <column name="reservation_start_date">2024-07-01</column>
+            <column name="reservation_end_date">2024-07-07</column>
+            <column name="creation_date">2024-03-29</column>
+            <column name="modification_date">2024-03-29</column>
+            <column name="reservation_price">855</column>
+            <column name="room_id">2</column>
+            <column name="booker_id">1</column>
+        </insert>
+
+        <insert tableName="r_reservation_customer">
+            <column name="reservation_id">1</column>
+            <column name="customer_id">1</column>
+        </insert>
+
+        <insert tableName="r_reservation_customer">
+            <column name="reservation_id">2</column>
+            <column name="customer_id">1</column>
+        </insert>
+
+        <insert tableName="r_reservation_customer">
+            <column name="reservation_id">2</column>
+            <column name="customer_id">2</column>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
